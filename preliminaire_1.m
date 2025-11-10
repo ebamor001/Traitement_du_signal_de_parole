@@ -27,19 +27,19 @@ title('Autocorrélation théorique');
 grid on;
 
 subplot(3,1,2); % Estimée biased
-plot(lags, R_est_biased, 'b');
-xlabel('Décalage k');
-xlim([min(lags) max(lags)]);
-ylabel('R_x(k)');
-title('Autocorrélation estimée (biased)');
-grid on;
-
-subplot(3,1,3); % Estimée unbiased
-plot(lags, R_est_unbiased, 'g');
+plot(lags, R_est_unbiased, 'b');
 xlabel('Décalage k');
 xlim([min(lags) max(lags)]);
 ylabel('R_x(k)');
 title('Autocorrélation estimée (unbiased)');
+grid on;
+
+subplot(3,1,3); % Estimée unbiased
+plot(lags, R_est_biased, 'g');
+xlabel('Décalage k');
+xlim([min(lags) max(lags)]);
+ylabel('R_x(k)');
+title('Autocorrélation estimée (biased)');
 grid on;
 
 sgtitle('Comparaison des autocorrélations (Théorique / Biased / Unbiased)');
@@ -114,8 +114,7 @@ flatness = zeros(1, nb_real);
 
 for k = 1:nb_real
     x = randn(1, N);             % bruit blanc gaussien
-    [P, ~] = Mon_Welch(x, Nfft, Fe,0.5);  
-    flatness(k) = platitude_spectrale(P);
+    flatness(k) = platitude_spectrale(Pw);
 end
 
 moyenne = mean(flatness);
