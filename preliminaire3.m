@@ -20,6 +20,12 @@ for i = 1:length(k0_values)
     % --- Application du filtre ---
     y = filter(h, 1, signal);
 
+    % Lecture audio
+    disp(['Lecture du signal filtré pour k0 = ', num2str(k0)]);
+    sound(y / max(abs(y)), Fe);  % normalisation + lecture du signal filtré
+    pause(length(y)/Fe + 1);     % attendre la fin du son avant le suivant
+
+
     % --- Affichage du spectrogramme ---
     subplot(2,2,i);
     spectrogram(y, hamming(256), 128, 512, Fe, 'yaxis');
