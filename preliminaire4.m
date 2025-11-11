@@ -4,7 +4,8 @@ clear; close all; clc;
 %% 1. Création d'un signal synthétique
 fs = 1600;                    % fréquence d'échantillonnage
 t = (0:1/fs:1-1/fs)';         % vecteur temps
-x = sin(2*pi*50*t) + 0.5*sin(2*pi*120*t); %signal test
+x = sin(2*pi*50*t) + 0.5*sin(2*pi*120*t); %signal synthétique multi-fréquence
+
 
 %% 2. Paramètres de tramage
 L = 15;           % longueur de trame
