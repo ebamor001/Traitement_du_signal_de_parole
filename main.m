@@ -19,7 +19,7 @@ L = 1024;                      % longueur de trame
 R = L/2;                       % recouvrement 50%
 w = hann(L, 'periodic');       % fenêtre de Hann
 
-%% 4. Estimation du spectre de bruit (20 premières trames supposées bruit seul)
+%% 4. Estimation du spectre de bruit
 nb_trames_bruit = 20;
 [B,~,~] = spectrogram(b(1:nb_trames_bruit*R), w, R, Nfft, fs);
 Pbb = mean(abs(B).^2, 2);      % densité spectrale moyenne du bruit

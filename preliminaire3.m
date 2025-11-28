@@ -72,3 +72,5 @@ for k0 = k0_values
     A = max(abs(y));
     ylim([-A A]);grid on;
 end
+
+
