@@ -21,27 +21,29 @@ RSB_values = [5 10 15 20];
 for i = 1:length(RSB_values)
     [y, bruit] = addNoise(signal, RSB_values(i));
 
+    t = (0:length(signal)-1) / Fe;
+   
     %  Affichage 
     figure;
     subplot(2,2,1);
-    plot(signal);
+    plot(t,signal);
     title('Signal de parole original');
-    xlabel('Échantillons');ylabel('Amplitude');
-    xlim([1 length(signal)]); 
+    xlabel('Temps (s)');ylabel('Amplitude');
+    xlim([1 6.5]); 
     A = max(abs(signal));
     ylim([-A A]);
     grid on;
 
 
-    subplot(2,2,2);
+    subplot(2,2,3);
     spectrogram(signal, hamming(256), 128, 512, Fe, 'yaxis');
     title('Spectrogramme - signal original');
 
-    subplot(2,2,3);
-    plot(y);
+    subplot(2,2,2);
+    plot(t,y);
     title(['Signal bruité (RSB = ', num2str(RSB_values(i)), ' dB)']);
-    xlabel('Échantillons');ylabel('Amplitude');
-    xlim([1 length(y)]);
+    xlabel('Temps (s)');ylabel('Amplitude');
+    xlim([1 6.5]); 
     A = max(abs(y));
     ylim([-A A]);
     grid on;

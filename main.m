@@ -96,17 +96,19 @@ y_rehausse = y_rehausse / max(abs(y_rehausse));
 %% 10. Visualisation comparative : signal original vs rehaussé
 figure('Name','Comparaison des signaux original et rehaussé','Color','w');
 
+t = (0:length(x)-1) / fs;
+
 % --- (a) Signaux temporels ---
 subplot(2,2,1);
-plot(x, 'b'); 
+plot(t,x, 'b'); 
 title('Signal de parole original');
-xlabel('Échantillons'); ylabel('Amplitude');
+xlabel('Temps (s)'); ylabel('Amplitude');
 grid on; axis tight;
 
 subplot(2,2,2);
-plot(y_rehausse, 'r');
+plot(t,y_rehausse, 'r');
 title('Signal de parole rehaussé');
-xlabel('Échantillons'); ylabel('Amplitude');
+xlabel('Temps (s)'); ylabel('Amplitude');
 grid on; axis tight;
 
 % --- (b) Spectrogrammes ---
@@ -120,7 +122,6 @@ spectrogram(y_rehausse, w, R, Nfft, fs, 'yaxis');
 title('Spectrogramme du signal rehaussé');
 xlabel('Temps (s)'); ylabel('Fréquence (kHz)');
 
-sgtitle('Comparaison du signal de parole avant et après rehaussement');
 
 
 %% 11. Évaluation du gain en RSB

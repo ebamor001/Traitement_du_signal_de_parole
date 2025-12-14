@@ -21,20 +21,49 @@ for i = 1:length(k0_values)
     y = filter(h, 1, signal);
 
     % Lecture audio
-    disp(['Lecture du signal filtré pour k0 = ', num2str(k0)]);
+    disp(['Lecture du signal filtré pour k_0 = ', num2str(k0)]);
     sound(y / max(abs(y)), Fe);  % normalisation + lecture du signal filtré
     pause(length(y)/Fe + 1);     % attendre la fin du son avant le suivant
 
 
-    % --- Affichage du spectrogramme ---
-    subplot(2,2,i);
+    % --- Affichage du spectrogramme et du signal ---
+    t = (0:length(signal)-1) / Fe;
+
+    figure('Name', 'Spectrogrammes et signaux pour différentes valeurs de k0', 'NumberTitle', 'off');
+
+    subplot(2,2,1);
+    plot(t,signal);
+    title('Signal de parole original');
+    xlabel('Temps (s)');ylabel('Amplitude');
+    xlim([1 6.5]); 
+    A = max(abs(signal));
+    ylim([-A A]);
+    grid on;
+
+    subplot(2,2,2);
+    plot(t,y);
+    title(['Signal filtré (k_0 = ', num2str(k0_values(i)), ')']);
+    xlabel('Temps (s)');ylabel('Amplitude');
+    xlim([1 6.5]); 
+    A = max(abs(y));
+    ylim([-A A]);
+    grid on;
+
+    subplot(2,2,3);
+    spectrogram(signal, hamming(256), 128, 512, Fe, 'yaxis');
+    title('Spectrogramme - signal original');
+
+    subplot(2,2,4);
     spectrogram(y, hamming(256), 128, 512, Fe, 'yaxis');
     title(['Spectrogramme - Signal filtré (k_0 = ', num2str(k0), ')']);
     ylim([0 4]); % 0–4 kHz utile
+
+    
+
+   
 end
 
-sgtitle('Comparaison des spectrogrammes pour différentes valeurs de k_0');
-
+ogramme
 %%  Boucle séparée pour les figures d'analyse du filtre 
 for k0 = k0_values
     h = zeros(1, k0+1);
@@ -43,11 +72,11 @@ for k0 = k0_values
     y = filter(h, 1, signal);
     [H, f] = freqz(h, 1, 512, Fe);
 
-    figure('Name', ['Analyse du filtre pour k0 = ', num2str(k0)], 'NumberTitle', 'off');
+    figure('Name', ['Analyse du filtre pour k_0 = ', num2str(k0)], 'NumberTitle', 'off');
 
     subplot(2,2,1);
     stem(0:k0, h, 'filled');
-    title(['Réponse impulsionnelle h(k), k0 = ', num2str(k0)]);
+    title(['Réponse impulsionnelle h(k), k_0 = ', num2str(k0)]);
     xlabel('k'); grid on;
 
     subplot(2,2,2);
@@ -66,11 +95,12 @@ for k0 = k0_values
 
     subplot(2,2,4);
     plot(y); 
-    title(['Signal filtré (k0 = ', num2str(k0), ')']);
+    title(['Signal filtré (k_0 = ', num2str(k0), ')']);
     xlabel('Échantillons'); 
     xlim([1 length(y)]); 
     A = max(abs(y));
     ylim([-A A]);grid on;
 end
+
 
 
