@@ -17,30 +17,23 @@ R_theo = sigma^2 * [zeros(1, N-1), 1, zeros(1, N-1)]; % même longueur que xcorr
 
 % Affichage
 figure;
-    
-subplot(3,1,1); % Théorique
+hold on;
+
+% Théorique
 stem(lags, R_theo, 'r', 'filled');
-xlabel('Décalage k');
-xlim([min(lags) max(lags)]);
-ylabel('R_x(k)');
-title('Autocorrélation théorique');
-grid on;
 
-subplot(3,1,2); % Estimée biased
+% Estimée unbiased
 plot(lags, R_est_unbiased, 'b');
+
+% Estimée biased
+plot(lags, R_est_biased, 'g');
+
 xlabel('Décalage k');
-xlim([min(lags) max(lags)]);
 ylabel('R_x(k)');
-title('Autocorrélation estimée (unbiased)');
+xlim([min(lags) max(lags)]);
 grid on;
 
-subplot(3,1,3); % Estimée unbiased
-plot(lags, R_est_biased, 'g');
-xlabel('Décalage k');
-xlim([min(lags) max(lags)]);
-ylabel('R_x(k)');
-title('Autocorrélation estimée (biased)');
-grid on;
+legend('Autocorrélation théorique','Autocorrélation estimée (unbiased)','Autocorrélation estimée (biased)','Location','best');
 
 sgtitle('Comparaison des autocorrélations (Théorique / Biased / Unbiased)');
 
